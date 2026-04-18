@@ -14,7 +14,7 @@ builder.Services.AddControllersWithViews();
 // Add Razor runtime compilation for development
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+    builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 }
 
 var app = builder.Build();
@@ -36,8 +36,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapRazorPages();
 
 // Initialize database on startup
 using (var scope = app.Services.CreateScope())

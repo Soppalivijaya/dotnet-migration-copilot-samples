@@ -1,21 +1,20 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace ContosoUniversity.Data
 {
     /// <summary>
-    /// SchoolContextFactory - Legacy factory class
-    /// In ASP.NET Core, DbContext instances are created via dependency injection.
-    /// The Create method is maintained for backward compatibility only.
+    /// SchoolContextFactory - Design-time factory for EF Core migrations
+    /// This allows EF Core CLI tools to create DbContext instances without a running application
     /// </summary>
-    public static class SchoolContextFactory
+    public class SchoolContextFactory : IDesignTimeDbContextFactory<SchoolContext>
     {
         /// <summary>
-        /// Creates a SchoolContext instance with a default connection string.
-        /// For production, use dependency injection instead.
+        /// Creates a SchoolContext instance for design-time operations (migrations)
         /// </summary>
-        public static SchoolContext Create()
+        public SchoolContext CreateDbContext(string[] args)
         {
-            const string connectionString = "Server=DESKTOP-OJ4OBJ7;Database=ContosoUniversity;Trusted_Connection=true;Encrypt=false";
+            const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=ContosoUniversity;Trusted_Connection=true;Encrypt=false";
             var optionsBuilder = new DbContextOptionsBuilder<SchoolContext>();
             optionsBuilder.UseSqlServer(connectionString);
 
